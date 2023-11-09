@@ -11,6 +11,10 @@ public class Menu {
         this.count = count;
     }
 
+    public Integer getPrice() {
+        return this.menu.getPrice() * this.count;
+    }
+
     @Override
     public String toString() {
         return "Menu{" +
