@@ -67,4 +67,10 @@ public class Order {
         Integer countMain = getCountMain();
         totalDiscountPrice += countMain * 2_023;
     }
+
+    public void discountSpecialDay() {
+        if (date.isSpecialDay())
+            totalDiscountPrice += 1_000;
+    }
+
 }

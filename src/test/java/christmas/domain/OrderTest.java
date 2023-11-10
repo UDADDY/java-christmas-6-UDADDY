@@ -132,12 +132,29 @@ class OrderTest {
                 new Menu(MenuBoard.BARBEQUE_RIP, 2), // 108,000
                 new Menu(MenuBoard.CHAMPAGNE, 3), // 75,000
                 new Menu(MenuBoard.ICECREAM, 4) // 20_000
-        ), new Date(11));
+        ), new Date(15));
 
         // when
         weekendOrder.discountWeekend();
 
         // then
         assertEquals(weekendOrder.getTotalDiscountPrice(), 2 * 2023);
+    }
+
+    @DisplayName("스페셜 데이면 총주문 금액에서 1000원 할인하는 기능 테스트")
+    @Test
+    void discountSpecialDay() {
+        // given
+        Order speicalDayOrder = new Order(List.of(
+                new Menu(MenuBoard.BARBEQUE_RIP, 2), // 108,000
+                new Menu(MenuBoard.CHAMPAGNE, 3), // 75,000
+                new Menu(MenuBoard.ICECREAM, 4) // 20_000
+        ), new Date(10));
+
+        // when
+        speicalDayOrder.discountSpecialDay();
+
+        // then
+        assertEquals(speicalDayOrder.getTotalDiscountPrice(), 1_000);
     }
 }
