@@ -15,6 +15,12 @@ public class Menu {
         return this.menu.getPrice() * this.count;
     }
 
+    public boolean isDessert() {
+        if (menu.equals(MenuBoard.CHOCOLATE_CAKE) || menu.equals(MenuBoard.ICECREAM))
+            return true;
+        return false;
+    }
+
     @Override
     public String toString() {
         return "Menu{" +

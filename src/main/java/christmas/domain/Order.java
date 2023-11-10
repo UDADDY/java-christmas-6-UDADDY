@@ -1,6 +1,7 @@
 package christmas.domain;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Order {
     private List<Menu> menus;
@@ -37,5 +38,12 @@ public class Order {
     public void discountChristmas() {
         int discoutPrice = date.getDiscountPriceChristmas();
         totalDiscountPrice += discoutPrice;
+    }
+
+    public boolean containDessert() {
+        List<Boolean> is = menus.stream().map(Menu::isDessert).collect(Collectors.toList());
+        if (is.contains(true))
+            return true;
+        return false;
     }
 }
