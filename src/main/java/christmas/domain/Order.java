@@ -66,8 +66,10 @@ public class Order {
     }
 
     public void discountWeekend() {
-        Integer countMain = getCountMain();
-        totalDiscountPrice += countMain * 2_023;
+        if (date.isWeekend()) {
+            Integer countMain = getCountMain();
+            totalDiscountPrice += countMain * 2_023;
+        }
     }
 
     public void discountSpecialDay() {
