@@ -62,4 +62,9 @@ public class Order {
         Integer countDessert = getCountDessert();
         totalDiscountPrice += countDessert * 2_023;
     }
+
+    public void discountWeekend() {
+        Integer countMain = getCountMain();
+        totalDiscountPrice += countMain * 2_023;
+    }
 }

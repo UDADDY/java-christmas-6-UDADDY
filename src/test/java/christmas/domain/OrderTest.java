@@ -123,4 +123,21 @@ class OrderTest {
         // then
         assertEquals(weekdayOrder.getTotalDiscountPrice(), 4 * 2023);
     }
+
+    @DisplayName("주말이면 메인 메뉴 할인하는 기능 테스트")
+    @Test
+    void discountWeekend() {
+        // given
+        Order weekendOrder = new Order(List.of(
+                new Menu(MenuBoard.BARBEQUE_RIP, 2), // 108,000
+                new Menu(MenuBoard.CHAMPAGNE, 3), // 75,000
+                new Menu(MenuBoard.ICECREAM, 4) // 20_000
+        ), new Date(11));
+
+        // when
+        weekendOrder.discountWeekend();
+
+        // then
+        assertEquals(weekendOrder.getTotalDiscountPrice(), 2 * 2023);
+    }
 }
