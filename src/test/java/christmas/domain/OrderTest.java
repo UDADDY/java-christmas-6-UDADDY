@@ -106,4 +106,21 @@ class OrderTest {
         assertEquals(countMain, 2);
         assertEquals(countMain2, 5);
     }
+
+    @DisplayName("평일이면 디저트 메뉴 할인하는 기능 테스트")
+    @Test
+    void discountWeekday() {
+        // given
+        Order weekdayOrder = new Order(List.of(
+                new Menu(MenuBoard.BARBEQUE_RIP, 2), // 108,000
+                new Menu(MenuBoard.CHAMPAGNE, 3), // 75,000
+                new Menu(MenuBoard.ICECREAM, 4) // 10_000
+        ), new Date(11));
+
+        // when
+        weekdayOrder.discountWeekday();
+
+        // then
+        assertEquals(weekdayOrder.getTotalDiscountPrice(), 4 * 2023);
+    }
 }

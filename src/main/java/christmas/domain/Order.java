@@ -59,6 +59,7 @@ public class Order {
     }
 
     public void discountWeekday() { // 디저트 할인
-
+        Integer countDessert = getCountDessert();
+        totalDiscountPrice += countDessert * 2_023;
     }
 }
