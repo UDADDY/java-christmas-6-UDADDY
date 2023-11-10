@@ -41,8 +41,15 @@ public class Order {
     }
 
     public boolean containDessert() {
-        List<Boolean> is = menus.stream().map(Menu::isDessert).collect(Collectors.toList());
-        if (is.contains(true))
+        List<Boolean> isContainDesserts = menus.stream().map(Menu::isDessert).collect(Collectors.toList());
+        if (isContainDesserts.contains(true))
+            return true;
+        return false;
+    }
+
+    public boolean containMain() {
+        List<Boolean> isContainMains = menus.stream().map(Menu::isMain).collect(Collectors.toList());
+        if (isContainMains.contains(true))
             return true;
         return false;
     }
