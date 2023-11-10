@@ -1,6 +1,7 @@
 package christmas.domain;
 
 import christmas.domain.constant.Weekday;
+import christmas.domain.constant.Weekend;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,6 +30,14 @@ public class Date {
     public boolean isWeekday() {
         List<Weekday> weekdays = new ArrayList<>(List.of(Weekday.values()));
         List<Integer> days = weekdays.stream().map(Weekday::getDay).collect(Collectors.toList());
+        if (days.contains(day))
+            return true;
+        return false;
+    }
+
+    public boolean isWeekend() {
+        List<Weekend> weekends = new ArrayList<>(List.of(Weekend.values()));
+        List<Integer> days = weekends.stream().map(Weekend::getDay).collect(Collectors.toList());
         if (days.contains(day))
             return true;
         return false;
