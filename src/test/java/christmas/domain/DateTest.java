@@ -51,4 +51,18 @@ class DateTest {
         // then
         assertEquals(discountPrice, expectdDiscountPrice);
     }
+
+    @DisplayName("평일인지 판단하는 테스트")
+    @ParameterizedTest
+    @CsvSource(value = {"1, false", "2, false", "3, true", "4, true", "10, true",})
+    void isWeekday(Integer day, boolean expectedIsWeekday) {
+        // when
+        Date date = new Date(day);
+
+        // given
+        boolean isWeekday = date.isWeekday();
+
+        // then
+        assertEquals(isWeekday, expectedIsWeekday);
+    }
 }
