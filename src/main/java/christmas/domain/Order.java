@@ -4,9 +4,14 @@ import java.util.List;
 
 public class Order {
     private List<Menu> menus;
+    private Date date;
+    private Integer totalPrice;
+    private Integer totalDiscountPrice;
 
     public Order(List<Menu> menus) {
         this.menus = menus;
+        totalPrice = calculateBeforeDiscount();
+        totalDiscountPrice = 0;
     }
 
     public Integer calculateBeforeDiscount() {
@@ -22,5 +27,10 @@ public class Order {
         if (priceTotal > 10_000)
             return true;
         return false;
+    }
+
+    public void discountChristmas() {
+        int discoutPrice = date.getDiscountPriceChristmas();
+        totalDiscountPrice += discoutPrice;
     }
 }
