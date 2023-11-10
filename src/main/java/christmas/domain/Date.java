@@ -17,6 +17,10 @@ public class Date {
         this.day = day;
     }
 
+    public Integer getDay() {
+        return this.day;
+    }
+
     public boolean isChristmastDiscountable() {
         if (1 <= day && day <= 25) {
             return true;
