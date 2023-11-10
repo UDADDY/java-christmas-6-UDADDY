@@ -3,16 +3,16 @@ package christmas.domain;
 import christmas.domain.constant.MenuBoard;
 
 public class Menu {
-    private MenuBoard menu;
+    private MenuBoard name;
     private Integer count;
 
     public Menu(MenuBoard menu, Integer count) {
-        this.menu = menu;
+        this.name = menu;
         this.count = count;
     }
 
     public Integer getPrice() {
-        return this.menu.getPrice() * this.count;
+        return this.name.getPrice() * this.count;
     }
 
     public Integer getCount() {
@@ -20,21 +20,32 @@ public class Menu {
     }
 
     public boolean isDessert() {
-        if (menu.equals(MenuBoard.CHOCOLATE_CAKE) || menu.equals(MenuBoard.ICECREAM))
+        if (name.equals(MenuBoard.CHOCOLATE_CAKE) || name.equals(MenuBoard.ICECREAM))
             return true;
         return false;
     }
 
     public boolean isMain() {
-        if (menu.equals(MenuBoard.T_BONE_STEAK) || menu.equals(MenuBoard.BARBEQUE_RIP) || menu.equals(MenuBoard.SEAFOOD_PASTA) || menu.equals(MenuBoard.CHRISTMAST_PASTA))
+        if (name.equals(MenuBoard.T_BONE_STEAK) || name.equals(MenuBoard.BARBEQUE_RIP) || name.equals(MenuBoard.SEAFOOD_PASTA) || name.equals(MenuBoard.CHRISTMAST_PASTA))
             return true;
         return false;
+    }
+
+    public boolean isChampagne() {
+        if (name.equals(MenuBoard.CHAMPAGNE))
+            return true;
+        return false;
+    }
+
+    public Menu provide() {
+        Menu newMenu = new Menu(this.name, count++);
+        return newMenu;
     }
 
     @Override
     public String toString() {
         return "Menu{" +
-                "menu=" + menu +
+                "menu=" + name +
                 ", count=" + count +
                 '}';
     }

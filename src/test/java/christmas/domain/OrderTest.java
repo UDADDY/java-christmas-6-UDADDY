@@ -17,7 +17,7 @@ class OrderTest {
                 new Menu(MenuBoard.CHAMPAGNE, 3), // 75,000
                 new Menu(MenuBoard.CEASAR_SALAD, 4) // 32,000
         ), new Date(1));
-        Integer totalPrice = order.calculateBeforeDiscount(); // must be 215,000
+        Integer totalPrice = order.calculatePrice(); // must be 215,000
         assertEquals(totalPrice, 215000);
     }
 
@@ -180,5 +180,32 @@ class OrderTest {
         // then
         assertEquals(isGiveaway, true);
         assertEquals(isNotGiveaway, false);
+    }
+
+    @DisplayName("스페셜데이면 샴페인 제공하는 기능 테스트")
+    @Test
+    void provideChampagne() {
+        // given
+        Order giveawayOrder = new Order(List.of(
+                new Menu(MenuBoard.BARBEQUE_RIP, 2), // 108,000
+                new Menu(MenuBoard.CHAMPAGNE, 3), // 75,000
+                new Menu(MenuBoard.ICECREAM, 4) // 20_000
+        ), new Date(10));
+
+        Order giveawayOrder2 = new Order(List.of(
+                new Menu(MenuBoard.BARBEQUE_RIP, 2), // 108,000
+                new Menu(MenuBoard.CHOCOLATE_CAKE, 3), // 75,000
+                new Menu(MenuBoard.ICECREAM, 4) // 20_000
+        ), new Date(10));
+
+        // when
+        if (giveawayOrder.isGiveaway())
+            giveawayOrder.provideChampagne();
+        if (giveawayOrder2.isGiveaway())
+            giveawayOrder2.provideChampagne();
+
+        // then
+        assertEquals(giveawayOrder.getCountChampagne(), 4);
+        assertEquals(giveawayOrder2.getCountChampagne(), 1);
     }
 }

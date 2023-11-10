@@ -1,5 +1,8 @@
 package christmas.domain;
 
+import christmas.domain.constant.MenuBoard;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -10,9 +13,9 @@ public class Order {
     private Integer totalDiscountPrice;
 
     public Order(List<Menu> menus, Date date) {
-        this.menus = menus;
+        this.menus = new ArrayList<>(menus);
         this.date = date;
-        totalPrice = calculateBeforeDiscount();
+        totalPrice = calculatePrice();
         totalDiscountPrice = 0;
     }
 
@@ -20,7 +23,7 @@ public class Order {
         return totalDiscountPrice;
     }
 
-    public Integer calculateBeforeDiscount() {
+    public Integer calculatePrice() {
         Integer sum = 0;
         for (Menu menu : menus) {
             sum += menu.getPrice();
@@ -29,7 +32,7 @@ public class Order {
     }
 
     public boolean isDiscountable() {
-        Integer priceTotal = calculateBeforeDiscount();
+        Integer priceTotal = calculatePrice();
         if (priceTotal > 10_000)
             return true;
         return false;
@@ -81,6 +84,29 @@ public class Order {
         if (this.totalPrice >= 120_000)
             return true;
         return false;
+    }
+
+    public void provideChampagne() {
+        if (containChampagne()) {
+            menus.stream().filter(Menu::isChampagne).map(Menu::provide).collect(Collectors.toList());
+            return;
+        }
+        menus.add(new Menu(MenuBoard.CHAMPAGNE, 1));
+    }
+
+    public boolean containChampagne() {
+        List<Menu> filteredMenus = menus.stream().filter(Menu::isChampagne).collect(Collectors.toList());
+        if (filteredMenus.isEmpty())
+            return false;
+        return true;
+    }
+
+    public Integer getCountChampagne() {
+        for (Menu menu : menus) {
+            if (menu.isChampagne())
+                return menu.getCount();
+        }
+        return 0;
     }
 
 }
