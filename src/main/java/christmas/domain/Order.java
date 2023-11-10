@@ -1,5 +1,6 @@
 package christmas.domain;
 
+import christmas.domain.constant.EventBadge;
 import christmas.domain.constant.MenuBoard;
 
 import java.util.ArrayList;
@@ -39,8 +40,10 @@ public class Order {
     }
 
     public void discountChristmas() {
-        int discoutPrice = date.getDiscountPriceChristmas();
-        totalDiscountPrice += discoutPrice;
+        if (date.isChristmastDiscountable()) {
+            int discoutPrice = date.getDiscountPriceChristmas();
+            totalDiscountPrice += discoutPrice;
+        }
     }
 
     public Integer getCountDessert() {
@@ -107,6 +110,19 @@ public class Order {
                 return menu.getCount();
         }
         return 0;
+    }
+
+    public EventBadge getEventBadge() {
+        if (totalDiscountPrice >= EventBadge.SANTA.getMinimumStandard()) {
+            return EventBadge.SANTA;
+        }
+        if (totalDiscountPrice >= EventBadge.TREE.getMinimumStandard()) {
+            return EventBadge.TREE;
+        }
+        if (totalDiscountPrice >= EventBadge.STAR.getMinimumStandard()) {
+            return EventBadge.STAR;
+        }
+        return EventBadge.NOTHING;
     }
 
 }

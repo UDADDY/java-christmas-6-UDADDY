@@ -1,5 +1,6 @@
 package christmas.domain;
 
+import christmas.domain.constant.EventBadge;
 import christmas.domain.constant.MenuBoard;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -208,4 +209,65 @@ class OrderTest {
         assertEquals(giveawayOrder.getCountChampagne(), 4);
         assertEquals(giveawayOrder2.getCountChampagne(), 1);
     }
+
+    @DisplayName("이벤트 배지(트리) 판단하는 기능 테스트")
+    @Test
+    void getEventBadge_트리() {
+        // given
+        Order order = new Order(List.of(
+                new Menu(MenuBoard.BARBEQUE_RIP, 2), // 108,000
+                new Menu(MenuBoard.CHAMPAGNE, 3), // 75_000
+                new Menu(MenuBoard.ICECREAM, 4) // 20_000
+        ), new Date(10));
+
+        // when
+        order.discountChristmas(); // 1_900
+        order.discountWeekend(); // 0
+        order.discountWeekday(); // 8_092
+        order.discountSpecialDay(); // 1_000, totalDiscountPrice = 10_992
+
+        // then
+        assertEquals(order.getEventBadge(), EventBadge.TREE);
+    }
+
+    @DisplayName("이벤트 배지(별) 판단하는 기능 테스트")
+    @Test
+    void getEventBadge_스타() {
+        // given
+        Order order = new Order(List.of(
+                new Menu(MenuBoard.BARBEQUE_RIP, 2), // 108,000
+                new Menu(MenuBoard.CHAMPAGNE, 3), // 75_000
+                new Menu(MenuBoard.ICECREAM, 2) // 20_000
+        ), new Date(4));
+
+        // when
+        order.discountChristmas(); // 1_900
+        order.discountWeekend(); // 0
+        order.discountWeekday(); // 8_092
+        order.discountSpecialDay(); // 1_000, totalDiscountPrice = 10_992
+
+        // then
+        assertEquals(order.getEventBadge(), EventBadge.STAR);
+    }
+
+    @DisplayName("이벤트 배지(산타) 판단하는 기능 테스트")
+    @Test
+    void getEventBadge_산타() {
+        // given
+        Order order = new Order(List.of(
+                new Menu(MenuBoard.BARBEQUE_RIP, 10), // 108,000
+                new Menu(MenuBoard.CHAMPAGNE, 3), // 75_000
+                new Menu(MenuBoard.ICECREAM, 2) // 20_000
+        ), new Date(23));
+
+        // when
+        order.discountChristmas(); // 1_900
+        order.discountWeekend(); // 0
+        order.discountWeekday(); // 8_092
+        order.discountSpecialDay(); // 1_000, totalDiscountPrice = 10_992
+
+        // then
+        assertEquals(order.getEventBadge(), EventBadge.SANTA);
+    }
+
 }
