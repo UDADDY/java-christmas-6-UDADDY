@@ -8,10 +8,15 @@ public class Order {
     private Integer totalPrice;
     private Integer totalDiscountPrice;
 
-    public Order(List<Menu> menus) {
+    public Order(List<Menu> menus, Date date) {
         this.menus = menus;
+        this.date = date;
         totalPrice = calculateBeforeDiscount();
         totalDiscountPrice = 0;
+    }
+
+    public Integer getTotalDiscountPrice() {
+        return totalDiscountPrice;
     }
 
     public Integer calculateBeforeDiscount() {
