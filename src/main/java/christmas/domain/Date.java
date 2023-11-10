@@ -1,5 +1,6 @@
 package christmas.domain;
 
+import christmas.domain.constant.SpeicalDay;
 import christmas.domain.constant.Weekday;
 import christmas.domain.constant.Weekend;
 
@@ -38,6 +39,14 @@ public class Date {
     public boolean isWeekend() {
         List<Weekend> weekends = new ArrayList<>(List.of(Weekend.values()));
         List<Integer> days = weekends.stream().map(Weekend::getDay).collect(Collectors.toList());
+        if (days.contains(day))
+            return true;
+        return false;
+    }
+
+    public boolean isSpecialDay() {
+        List<SpeicalDay> speicalDays = new ArrayList<>(List.of(SpeicalDay.values()));
+        List<Integer> days = speicalDays.stream().map(SpeicalDay::getDay).collect(Collectors.toList());
         if (days.contains(day))
             return true;
         return false;

@@ -79,4 +79,18 @@ class DateTest {
         // then
         assertEquals(isWeeknd, expected);
     }
+
+    @DisplayName("스페셜데이인지 판단하는 테스트")
+    @ParameterizedTest
+    @CsvSource(value = {"1, false", "2, false", "3, true", "17, true", "22, false",})
+    void isSpecialDay(int day, boolean expected) {
+        // when
+        Date date = new Date(day);
+
+        // given
+        boolean isSpecialDay = date.isSpecialDay();
+
+        // then
+        assertEquals(isSpecialDay, expected);
+    }
 }
