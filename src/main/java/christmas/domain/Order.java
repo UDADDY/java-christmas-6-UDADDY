@@ -49,11 +49,13 @@ public class Order {
         return sum;
     }
 
-    public boolean containMain() {
-        List<Boolean> isContainMains = menus.stream().map(Menu::isMain).collect(Collectors.toList());
-        if (isContainMains.contains(true))
-            return true;
-        return false;
+    public Integer getCountMain() {
+        Integer sum = 0;
+        for (Menu menu : menus) {
+            if (menu.isMain())
+                sum += menu.getCount();
+        }
+        return sum;
     }
 
     public void discountWeekday() { // 디저트 할인
