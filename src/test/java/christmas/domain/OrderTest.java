@@ -157,4 +157,28 @@ class OrderTest {
         // then
         assertEquals(speicalDayOrder.getTotalDiscountPrice(), 1_000);
     }
+
+    @DisplayName("증정 이벤트 판단하는 기능 테스트")
+    @Test
+    void isGiveaway() {
+        // given
+        Order order = new Order(List.of(
+                new Menu(MenuBoard.BARBEQUE_RIP, 2), // 108,000
+                new Menu(MenuBoard.CHAMPAGNE, 3), // 75,000
+                new Menu(MenuBoard.ICECREAM, 4) // 20_000
+        ), new Date(10));
+
+
+        Order orderNotGiveaway = new Order(List.of(
+                new Menu(MenuBoard.BARBEQUE_RIP, 2) // 108,000
+        ), new Date(10));
+
+        // when
+        boolean isGiveaway = order.isGiveaway();
+        boolean isNotGiveaway = orderNotGiveaway.isGiveaway();
+
+        // then
+        assertEquals(isGiveaway, true);
+        assertEquals(isNotGiveaway, false);
+    }
 }

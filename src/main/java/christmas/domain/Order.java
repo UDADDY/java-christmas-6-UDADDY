@@ -77,4 +77,10 @@ public class Order {
             totalDiscountPrice += 1_000;
     }
 
+    public boolean isGiveaway() {
+        if (this.totalPrice >= 120_000)
+            return true;
+        return false;
+    }
+
 }
