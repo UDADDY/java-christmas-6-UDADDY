@@ -16,4 +16,11 @@ public class Order {
         }
         return sum;
     }
+
+    public boolean isDiscountable() {
+        Integer priceTotal = calculateBeforeDiscount();
+        if (priceTotal > 10_000)
+            return true;
+        return false;
+    }
 }
