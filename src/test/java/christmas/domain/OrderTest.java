@@ -56,7 +56,7 @@ class OrderTest {
 
     }
 
-    @DisplayName("주문에 디저트가 포함되어 있는지 판단하는 테스트")
+    @DisplayName("주문에 디저트 메뉴 개수 반환하는 기능 테스트")
     @Test
     void containDessert() {
         // given
@@ -64,21 +64,22 @@ class OrderTest {
                 new Menu(MenuBoard.BARBEQUE_RIP, 2), // 108,000
                 new Menu(MenuBoard.CHAMPAGNE, 3), // 75,000
                 new Menu(MenuBoard.ICECREAM, 4) // 32,000
-        ), new Date(11)); // 2,000원 할인
+        ), new Date(11));
 
         Order order2 = new Order(List.of(
                 new Menu(MenuBoard.BARBEQUE_RIP, 2), // 108,000
                 new Menu(MenuBoard.CHAMPAGNE, 3), // 75,000
-                new Menu(MenuBoard.CEASAR_SALAD, 4) // 32,000
+                new Menu(MenuBoard.CHOCOLATE_CAKE, 3),
+                new Menu(MenuBoard.ICECREAM, 4) // 32,000
         ), new Date(11));
 
         // when
-        boolean isContainDessert = order.containDessert();
-        boolean isContainDessert2 = order2.containDessert();
+        Integer countDessert = order.getCountDessert();
+        Integer countDessert2 = order2.getCountDessert();
 
         // then
-        assertEquals(isContainDessert, true);
-        assertEquals(isContainDessert2, false);
+        assertEquals(countDessert, 4);
+        assertEquals(countDessert2, 7);
     }
 
     @DisplayName("주문에 메인이 포함되어 있는지 판단하는 테스트")

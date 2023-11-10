@@ -40,11 +40,13 @@ public class Order {
         totalDiscountPrice += discoutPrice;
     }
 
-    public boolean containDessert() {
-        List<Boolean> isContainDesserts = menus.stream().map(Menu::isDessert).collect(Collectors.toList());
-        if (isContainDesserts.contains(true))
-            return true;
-        return false;
+    public Integer getCountDessert() {
+        Integer sum = 0;
+        for (Menu menu : menus) {
+            if (menu.isDessert())
+                sum += menu.getCount();
+        }
+        return sum;
     }
 
     public boolean containMain() {
@@ -52,5 +54,9 @@ public class Order {
         if (isContainMains.contains(true))
             return true;
         return false;
+    }
+
+    public void discountWeekday() { // 디저트 할인
+
     }
 }
