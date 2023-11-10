@@ -14,4 +14,10 @@ public class Date {
         }
         return false;
     }
+
+    public Integer getDiscountPriceChristmas() {
+        return 1000 + (day - 1) * 100;
+    }
+
+
 }
