@@ -12,4 +12,8 @@ public enum DiscountName {
     private DiscountName(String name) {
         this.name = name;
     }
+
+    public String getName() {
+        return this.name;
+    }
 }

@@ -1,5 +1,6 @@
 package christmas.view;
 
+import christmas.domain.Benefit;
 import christmas.domain.Menu;
 import christmas.domain.Order;
 import christmas.domain.constant.MenuBoard;
@@ -11,7 +12,7 @@ public class OutputView {
 
     private DecimalFormat decimalFormat = new DecimalFormat("###,###");
 
-    public void printMenu(Order order) {
+    public void printMenu(final Order order) {
         System.out.println("<주문 메뉴>");
 
         List<Menu> menus = order.getMenus();
@@ -20,12 +21,12 @@ public class OutputView {
         }
     }
 
-    public void printTotalPrice(Order order) {
+    public void printTotalPrice(final Order order) {
         System.out.println("<할인 전 총주문 금액>");
         System.out.println(decimalFormat.format(order.getTotalPrice()) + "원");
     }
 
-    public void printGiveaway(Order order) {
+    public void printGiveaway(final Order order) {
         System.out.println("<증정 메뉴>");
         if (!order.isGiveaway()) {
             System.out.println("없음");
@@ -33,6 +34,18 @@ public class OutputView {
         }
 
         System.out.println("샴페인 1개");
+    }
+
+    public void printBenefit(final Order order) {
+        System.out.println("<혜택 내역>");
+        if (order.getTotalDiscountPrice() == 0) {
+            System.out.println("없음");
+            return;
+        }
+        List<Benefit> benefits = order.getBenefits();
+        for (Benefit benefit : benefits) {
+            System.out.printf("%s: -%s원\n", benefit.getDiscountName().getName(), decimalFormat.format(benefit.getPrice()));
+        }
 
     }
 }

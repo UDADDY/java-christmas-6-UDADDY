@@ -14,4 +14,8 @@ public class Benefit {
     public Integer getPrice() {
         return this.price;
     }
+
+    public DiscountName getDiscountName() {
+        return this.discountName;
+    }
 }

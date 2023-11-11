@@ -114,4 +114,38 @@ class OutputViewTest {
                         "없음"
         );
     }
+
+    @DisplayName("혜택 내역 출력 기능(없으면 없음) 테스트")
+    @Test
+    void printBenefit() {
+        // given
+        OutputView outputView = new OutputView();
+        Order order = new Order(List.of(
+                new Menu(MenuBoard.T_BONE_STEAK, 1), // 540,000
+                new Menu(MenuBoard.BARBEQUE_RIP, 1), // 75_000
+                new Menu(MenuBoard.CHOCOLATE_CAKE, 2), // 10_000
+                new Menu(MenuBoard.ZERO_COKE, 1) // 10_000
+        ), new Date(3));
+
+        // when
+        discountAll(order);
+        outputView.printBenefit(order);
+
+        // then
+        assertThat(outputStreamCaptor.toString().trim()).isEqualTo(
+                "<혜택 내역>\n" +
+                        "크리스마스 디데이 할인: -1,200원\n" +
+                        "평일 할인: -4,046원\n" +
+                        "특별 할인: -1,000원\n" +
+                        "증정 이벤트: -25,000원"
+        );
+    }
+
+    private void discountAll(Order order) {
+        order.discountChristmas();
+        order.discountWeekday();
+        order.discountWeekend();
+        order.discountSpecialDay();
+        order.discountGiveaway();
+    }
 }
