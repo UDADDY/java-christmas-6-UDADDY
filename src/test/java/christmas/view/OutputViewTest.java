@@ -141,6 +141,50 @@ class OutputViewTest {
         );
     }
 
+    @DisplayName("총혜택 금액 출력 기능")
+    @Test
+    void printTotalDiscountPrice() {
+        // given
+        OutputView outputView = new OutputView();
+        Order order = new Order(List.of(
+                new Menu(MenuBoard.T_BONE_STEAK, 1), // 540,000
+                new Menu(MenuBoard.BARBEQUE_RIP, 1), // 75_000
+                new Menu(MenuBoard.CHOCOLATE_CAKE, 2), // 10_000
+                new Menu(MenuBoard.ZERO_COKE, 1) // 10_000
+        ), new Date(3));
+
+        // when
+        discountAll(order);
+        outputView.printTotalDiscountPrice(order);
+
+        // then
+        assertThat(outputStreamCaptor.toString().trim()).isEqualTo(
+                "<총혜택 금액>\n" +
+                        "-31,246원"
+        );
+    }
+
+    @DisplayName("총혜택 금액 출력 기능(0원)")
+    @Test
+    void printNoTotalDiscountPrice() {
+        // given
+        OutputView outputView = new OutputView();
+        Order order = new Order(List.of(
+                new Menu(MenuBoard.TAPAS, 1), // 540,000
+                new Menu(MenuBoard.ZERO_COKE, 1)
+        ), new Date(26));
+
+        // when
+        discountAll(order);
+        outputView.printTotalDiscountPrice(order);
+
+        // then
+        assertThat(outputStreamCaptor.toString().trim()).isEqualTo(
+                "<총혜택 금액>\n" +
+                        "0원"
+        );
+    }
+
     private void discountAll(Order order) {
         order.discountChristmas();
         order.discountWeekday();

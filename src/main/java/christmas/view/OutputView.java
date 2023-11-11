@@ -4,6 +4,7 @@ import christmas.domain.Benefit;
 import christmas.domain.Menu;
 import christmas.domain.Order;
 import christmas.domain.constant.MenuBoard;
+import org.mockito.internal.matchers.Or;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -46,6 +47,17 @@ public class OutputView {
         for (Benefit benefit : benefits) {
             System.out.printf("%s: -%s원\n", benefit.getDiscountName().getName(), decimalFormat.format(benefit.getPrice()));
         }
+    }
 
+    public void printTotalDiscountPrice(final Order order) {
+        List<Benefit> benefits = order.getBenefits();
+
+        System.out.println("<총혜택 금액>");
+        if (order.getTotalDiscountPrice() == 0) {
+            System.out.println("0원");
+            return;
+        }
+
+        System.out.printf("-%s원", decimalFormat.format(order.getTotalDiscountPrice()));
     }
 }
