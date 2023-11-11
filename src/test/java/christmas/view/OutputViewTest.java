@@ -115,7 +115,7 @@ class OutputViewTest {
         );
     }
 
-    @DisplayName("혜택 내역 출력 기능(없으면 없음) 테스트")
+    @DisplayName("혜택 내역 출력 기능 테스트")
     @Test
     void printBenefit() {
         // given
@@ -138,6 +138,27 @@ class OutputViewTest {
                         "평일 할인: -4,046원\n" +
                         "특별 할인: -1,000원\n" +
                         "증정 이벤트: -25,000원"
+        );
+    }
+
+    @DisplayName("혜택 내역 출력 기능 테스트(없음)")
+    @Test
+    void printNoBenefit() {
+        // given
+        OutputView outputView = new OutputView();
+        Order order = new Order(List.of(
+                new Menu(MenuBoard.TAPAS, 1), // 540,000
+                new Menu(MenuBoard.ZERO_COKE, 1)
+        ), new Date(26));
+
+        // when
+        discountAll(order);
+        outputView.printBenefit(order);
+
+        // then
+        assertThat(outputStreamCaptor.toString().trim()).isEqualTo(
+                "<혜택 내역>\n" +
+                        "없음"
         );
     }
 
