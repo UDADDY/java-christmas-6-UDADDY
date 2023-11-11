@@ -2,6 +2,8 @@ package christmas.domain;
 
 import christmas.domain.constant.MenuBoard;
 
+import java.util.Objects;
+
 public class Menu {
     private MenuBoard name;
     private Integer count;
@@ -48,5 +50,18 @@ public class Menu {
                 "menu=" + name +
                 ", count=" + count +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Menu menu = (Menu) o;
+        return name == menu.name && Objects.equals(count, menu.count);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, count);
     }
 }
