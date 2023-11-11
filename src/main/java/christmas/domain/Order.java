@@ -94,16 +94,23 @@ public class Order {
     }
 
     public void provideChampagne() {
+        totalDiscountPrice += MenuBoard.CHAMPAGNE.getPrice();
         if (containChampagne()) {
-            menus.stream().filter(Menu::isChampagne).map(Menu::provide).collect(Collectors.toList());
+            int index = menus.indexOf(new Menu(MenuBoard.CHAMPAGNE, 0));
+            menus.get(index).provide();
+//            menus.stream().filter(Menu::isChampagne).map(Menu::provide).collect(Collectors.toList());
             return;
         }
         menus.add(new Menu(MenuBoard.CHAMPAGNE, 1));
     }
 
     public boolean containChampagne() {
-        List<Menu> filteredMenus = menus.stream().filter(Menu::isChampagne).collect(Collectors.toList());
-        if (filteredMenus.isEmpty())
+        Menu filteredMenus = menus.stream()
+                .filter(menu -> menu.getName().equals(MenuBoard.CHAMPAGNE.getName()))
+                .findAny()
+                .orElse(null);
+
+        if (filteredMenus == null)
             return false;
         return true;
     }

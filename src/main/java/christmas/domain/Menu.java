@@ -43,9 +43,8 @@ public class Menu {
         return false;
     }
 
-    public Menu provide() {
-        Menu newMenu = new Menu(this.menu, count++);
-        return newMenu;
+    public void provide() {
+        this.count++;
     }
 
     @Override
@@ -61,7 +60,7 @@ public class Menu {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Menu comparedMenu = (Menu) o;
-        return menu == comparedMenu.menu && Objects.equals(count, comparedMenu.count);
+        return menu == comparedMenu.menu;
     }
 
     @Override
