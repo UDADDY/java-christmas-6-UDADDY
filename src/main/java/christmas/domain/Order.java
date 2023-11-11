@@ -29,6 +29,10 @@ public class Order {
         return benefits.stream().mapToInt(Benefit::getPrice).sum();
     }
 
+    public List<Benefit> getBenefits() {
+        return this.benefits;
+    }
+
     public Integer calculatePrice() {
         Integer sum = 0;
         for (Menu menu : menus) {
@@ -85,6 +89,11 @@ public class Order {
     public void discountSpecialDay() {
         if (date.isSpecialDay())
             benefits.add(new Benefit(DiscountName.SPECIAL, 1_000));
+    }
+
+    public void discountGiveaway() {
+        if (isGiveaway())
+            provideChampagne();
     }
 
     public boolean isGiveaway() {

@@ -200,10 +200,8 @@ class OrderTest {
         ), new Date(10));
 
         // when
-        if (giveawayOrder.isGiveaway())
-            giveawayOrder.provideChampagne();
-        if (giveawayOrder2.isGiveaway())
-            giveawayOrder2.provideChampagne();
+        giveawayOrder.discountGiveaway();
+        giveawayOrder2.discountGiveaway();
 
         // then
         assertEquals(giveawayOrder.getCountChampagne(), 4);
