@@ -72,4 +72,46 @@ class OutputViewTest {
                 "<할인 전 총주문 금액>\n" +
                         "625,000원");
     }
+
+    @DisplayName("증정 메뉴 출력 기능 테스트")
+    @Test
+    void printGiveaway() {
+        // given
+        OutputView outputView = new OutputView();
+        Order order = new Order(List.of(
+                new Menu(MenuBoard.BARBEQUE_RIP, 10), // 540,000
+                new Menu(MenuBoard.CHAMPAGNE, 3), // 75_000
+                new Menu(MenuBoard.ICECREAM, 2) // 10_000
+        ), new Date(23));
+
+        // when
+        outputView.printGiveaway(order);
+
+        // then
+        assertThat(outputStreamCaptor.toString().trim()).isEqualTo(
+                "<증정 메뉴>\n" +
+                        "샴페인 1개"
+        );
+    }
+
+    @DisplayName("증정 메뉴 출력 기능 테스트(없음)")
+    @Test
+    void printNoGiveaway() {
+        // given
+        OutputView outputView = new OutputView();
+        Order order = new Order(List.of(
+                new Menu(MenuBoard.BARBEQUE_RIP, 1), // 540,000
+                new Menu(MenuBoard.CHAMPAGNE, 1), // 75_000
+                new Menu(MenuBoard.ICECREAM, 1) // 10_000
+        ), new Date(23));
+
+        // when
+        outputView.printGiveaway(order);
+
+        // then
+        assertThat(outputStreamCaptor.toString().trim()).isEqualTo(
+                "<증정 메뉴>\n" +
+                        "없음"
+        );
+    }
 }

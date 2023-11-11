@@ -132,4 +132,11 @@ public class Order {
     public List<Menu> getMenus() {
         return menus;
     }
+
+    public Integer getCountByName(MenuBoard menuBoard) {
+        Integer count = (int) menus.stream()
+                .filter(menu -> menu.equals(menuBoard))
+                .count();
+        return count;
+    }
 }
