@@ -1,5 +1,6 @@
 package christmas.domain;
 
+import christmas.domain.constant.DiscountName;
 import christmas.domain.constant.EventBadge;
 import christmas.domain.constant.MenuBoard;
 
@@ -11,13 +12,13 @@ public class Order {
     private List<Menu> menus;
     private Date date;
     private Integer totalPrice;
-    private Integer totalDiscountPrice;
+    private List<Benefit> benefits;
 
     public Order(List<Menu> menus, Date date) {
         this.menus = new ArrayList<>(menus);
         this.date = date;
+        this.benefits = new ArrayList<>();
         totalPrice = calculatePrice();
-        totalDiscountPrice = 0;
     }
 
     public Integer getTotalPrice() {
@@ -25,7 +26,7 @@ public class Order {
     }
 
     public Integer getTotalDiscountPrice() {
-        return totalDiscountPrice;
+        return benefits.stream().mapToInt(Benefit::getPrice).sum();
     }
 
     public Integer calculatePrice() {
@@ -45,8 +46,7 @@ public class Order {
 
     public void discountChristmas() {
         if (date.isChristmastDiscountable()) {
-            int discoutPrice = date.getDiscountPriceChristmas();
-            totalDiscountPrice += discoutPrice;
+            benefits.add(new Benefit(DiscountName.CHRISTMAS_D_DAY, date.getDiscountPriceChristmas()));
         }
     }
 
@@ -71,20 +71,20 @@ public class Order {
     public void discountWeekday() { // 디저트 할인
         if (date.isWeekday()) {
             Integer countDessert = getCountDessert();
-            totalDiscountPrice += countDessert * 2_023;
+            benefits.add(new Benefit(DiscountName.WEEKDAY, countDessert * 2_023));
         }
     }
 
     public void discountWeekend() {
         if (date.isWeekend()) {
             Integer countMain = getCountMain();
-            totalDiscountPrice += countMain * 2_023;
+            benefits.add(new Benefit(DiscountName.WEEKEND, countMain * 2_023));
         }
     }
 
     public void discountSpecialDay() {
         if (date.isSpecialDay())
-            totalDiscountPrice += 1_000;
+            benefits.add(new Benefit(DiscountName.SPECIAL, 1_000));
     }
 
     public boolean isGiveaway() {
@@ -94,11 +94,10 @@ public class Order {
     }
 
     public void provideChampagne() {
-        totalDiscountPrice += MenuBoard.CHAMPAGNE.getPrice();
+        benefits.add(new Benefit(DiscountName.GIVEAWAY, 25_000));
         if (containChampagne()) {
             int index = menus.indexOf(new Menu(MenuBoard.CHAMPAGNE, 0));
             menus.get(index).provide();
-//            menus.stream().filter(Menu::isChampagne).map(Menu::provide).collect(Collectors.toList());
             return;
         }
         menus.add(new Menu(MenuBoard.CHAMPAGNE, 1));
@@ -124,13 +123,13 @@ public class Order {
     }
 
     public EventBadge getEventBadge() {
-        if (totalDiscountPrice >= EventBadge.SANTA.getMinimumStandard()) {
+        if (getTotalDiscountPrice() >= EventBadge.SANTA.getMinimumStandard()) {
             return EventBadge.SANTA;
         }
-        if (totalDiscountPrice >= EventBadge.TREE.getMinimumStandard()) {
+        if (getTotalDiscountPrice() >= EventBadge.TREE.getMinimumStandard()) {
             return EventBadge.TREE;
         }
-        if (totalDiscountPrice >= EventBadge.STAR.getMinimumStandard()) {
+        if (getTotalDiscountPrice() >= EventBadge.STAR.getMinimumStandard()) {
             return EventBadge.STAR;
         }
         return EventBadge.NOTHING;
