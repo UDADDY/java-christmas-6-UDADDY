@@ -5,16 +5,20 @@ import christmas.domain.constant.MenuBoard;
 import java.util.Objects;
 
 public class Menu {
-    private MenuBoard name;
+    private MenuBoard menu;
     private Integer count;
 
     public Menu(MenuBoard menu, Integer count) {
-        this.name = menu;
+        this.menu = menu;
         this.count = count;
     }
 
     public Integer getPrice() {
-        return this.name.getPrice() * this.count;
+        return this.menu.getPrice() * this.count;
+    }
+
+    public String getName() {
+        return menu.getName();
     }
 
     public Integer getCount() {
@@ -22,32 +26,32 @@ public class Menu {
     }
 
     public boolean isDessert() {
-        if (name.equals(MenuBoard.CHOCOLATE_CAKE) || name.equals(MenuBoard.ICECREAM))
+        if (menu.equals(MenuBoard.CHOCOLATE_CAKE) || menu.equals(MenuBoard.ICECREAM))
             return true;
         return false;
     }
 
     public boolean isMain() {
-        if (name.equals(MenuBoard.T_BONE_STEAK) || name.equals(MenuBoard.BARBEQUE_RIP) || name.equals(MenuBoard.SEAFOOD_PASTA) || name.equals(MenuBoard.CHRISTMAST_PASTA))
+        if (menu.equals(MenuBoard.T_BONE_STEAK) || menu.equals(MenuBoard.BARBEQUE_RIP) || menu.equals(MenuBoard.SEAFOOD_PASTA) || menu.equals(MenuBoard.CHRISTMAST_PASTA))
             return true;
         return false;
     }
 
     public boolean isChampagne() {
-        if (name.equals(MenuBoard.CHAMPAGNE))
+        if (menu.equals(MenuBoard.CHAMPAGNE))
             return true;
         return false;
     }
 
     public Menu provide() {
-        Menu newMenu = new Menu(this.name, count++);
+        Menu newMenu = new Menu(this.menu, count++);
         return newMenu;
     }
 
     @Override
     public String toString() {
         return "Menu{" +
-                "menu=" + name +
+                "menu=" + menu +
                 ", count=" + count +
                 '}';
     }
@@ -56,12 +60,12 @@ public class Menu {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Menu menu = (Menu) o;
-        return name == menu.name && Objects.equals(count, menu.count);
+        Menu comparedMenu = (Menu) o;
+        return menu == comparedMenu.menu && Objects.equals(count, comparedMenu.count);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, count);
+        return Objects.hash(menu, count);
     }
 }

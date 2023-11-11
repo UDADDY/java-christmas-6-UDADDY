@@ -125,4 +125,7 @@ public class Order {
         return EventBadge.NOTHING;
     }
 
+    public List<Menu> getMenus() {
+        return menus;
+    }
 }
