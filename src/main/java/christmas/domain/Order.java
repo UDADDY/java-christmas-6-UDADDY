@@ -20,6 +20,10 @@ public class Order {
         totalDiscountPrice = 0;
     }
 
+    public Integer getTotalPrice() {
+        return this.totalPrice;
+    }
+
     public Integer getTotalDiscountPrice() {
         return totalDiscountPrice;
     }
