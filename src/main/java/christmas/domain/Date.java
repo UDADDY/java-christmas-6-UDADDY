@@ -14,6 +14,7 @@ public class Date {
     private Integer day;
 
     public Date(Integer day) {
+        validate(day);
         this.day = day;
     }
 
@@ -54,6 +55,11 @@ public class Date {
         if (days.contains(day))
             return true;
         return false;
+    }
+
+    public void validate(Integer day) {
+        if (!(1 <= day && day <= 31))
+            throw new IllegalArgumentException();
     }
 
 
