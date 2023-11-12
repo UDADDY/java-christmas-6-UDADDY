@@ -53,6 +53,17 @@ public class Order {
         return sum;
     }
 
+    public void discountAll() {
+        if (!isDiscountable())
+            return;
+        
+        discountChristmas();
+        discountWeekday();
+        discountWeekend();
+        discountSpecialDay();
+        discountGiveaway();
+    }
+
     public boolean isDiscountable() {
         Integer priceTotal = calculatePrice();
         if (priceTotal > 10_000)
