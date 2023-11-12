@@ -98,6 +98,19 @@ class InputViewTest {
         assertThat(menus).isEqualTo(expected);
     }
 
+    @DisplayName("메뉴판에 없는 메뉴를 입력하면 예외를 발생시킨다")
+    @ParameterizedTest
+    @ValueSource(strings = {"aaa-1,바비큐립-1,초코케이크-2,제로콜라-1"})
+    void 메뉴판에_없는_메뉴_예외(String input) {
+        // given
+        System.setIn(createUserInput(input));
+
+        // when, then
+        assertThatThrownBy(() -> inputView.inputMenu())
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageStartingWith("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+    }
+
     InputStream createUserInput(String input) {
         return new ByteArrayInputStream(input.getBytes());
     }
