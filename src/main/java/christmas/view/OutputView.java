@@ -3,8 +3,6 @@ package christmas.view;
 import christmas.domain.Benefit;
 import christmas.domain.Menu;
 import christmas.domain.Order;
-import christmas.domain.constant.MenuBoard;
-import org.mockito.internal.matchers.Or;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -39,7 +37,7 @@ public class OutputView {
 
     public void printBenefit(final Order order) {
         System.out.println("<혜택 내역>");
-        if (order.getTotalDiscountPrice() == 0) {
+        if (order.getTotalBenefitPrice() == 0) {
             System.out.println("없음");
             return;
         }
@@ -49,15 +47,21 @@ public class OutputView {
         }
     }
 
-    public void printTotalDiscountPrice(final Order order) {
+    public void printTotalBenefitPrice(final Order order) {
         List<Benefit> benefits = order.getBenefits();
 
         System.out.println("<총혜택 금액>");
-        if (order.getTotalDiscountPrice() == 0) {
+        if (order.getTotalBenefitPrice() == 0) {
             System.out.println("0원");
             return;
         }
 
-        System.out.printf("-%s원", decimalFormat.format(order.getTotalDiscountPrice()));
+        System.out.printf("-%s원", decimalFormat.format(order.getTotalBenefitPrice()));
+    }
+
+    public void printPriceAfterDiscount(final Order order) {
+        final Integer priceAfterDiscount = order.getTotalPrice() - order.getTotalDiscountPrice();
+        System.out.println("<할인 후 예상 결제 금액>");
+        System.out.printf("%s원", decimalFormat.format(priceAfterDiscount));
     }
 }

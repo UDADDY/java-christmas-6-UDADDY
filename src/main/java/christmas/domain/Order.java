@@ -6,7 +6,6 @@ import christmas.domain.constant.MenuBoard;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Order {
     private List<Menu> menus;
@@ -26,7 +25,20 @@ public class Order {
     }
 
     public Integer getTotalDiscountPrice() {
-        return benefits.stream().mapToInt(Benefit::getPrice).sum();
+        Integer sum = 0;
+        for (Benefit benefit : benefits) {
+            if (!benefit.getDiscountName().equals(DiscountName.GIVEAWAY))
+                sum += benefit.getPrice();
+        }
+        return sum;
+    }
+
+    public Integer getTotalBenefitPrice() {
+        Integer sum = 0;
+        for (Benefit benefit : benefits) {
+            sum += benefit.getPrice();
+        }
+        return sum;
     }
 
     public List<Benefit> getBenefits() {

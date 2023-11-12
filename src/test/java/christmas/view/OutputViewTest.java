@@ -176,7 +176,7 @@ class OutputViewTest {
 
         // when
         discountAll(order);
-        outputView.printTotalDiscountPrice(order);
+        outputView.printTotalBenefitPrice(order);
 
         // then
         assertThat(outputStreamCaptor.toString().trim()).isEqualTo(
@@ -197,12 +197,35 @@ class OutputViewTest {
 
         // when
         discountAll(order);
-        outputView.printTotalDiscountPrice(order);
+        outputView.printTotalBenefitPrice(order);
 
         // then
         assertThat(outputStreamCaptor.toString().trim()).isEqualTo(
                 "<총혜택 금액>\n" +
                         "0원"
+        );
+    }
+
+    @DisplayName("할인 후 예상 결제 금액 출력 기능 테스트")
+    @Test
+    void printPriceAfterDiscount() {
+        // given
+        OutputView outputView = new OutputView();
+        Order order = new Order(List.of(
+                new Menu(MenuBoard.T_BONE_STEAK, 1), // 540,000
+                new Menu(MenuBoard.BARBEQUE_RIP, 1), // 75_000
+                new Menu(MenuBoard.CHOCOLATE_CAKE, 2), // 10_000
+                new Menu(MenuBoard.ZERO_COKE, 1) // 10_000
+        ), new Date(3));
+
+        // when
+        discountAll(order);
+        outputView.printPriceAfterDiscount(order);
+
+        // then
+        assertThat(outputStreamCaptor.toString().trim()).isEqualTo(
+                "<할인 후 예상 결제 금액>\n" +
+                        "135,754원"
         );
     }
 
