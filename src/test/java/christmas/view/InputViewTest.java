@@ -22,8 +22,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 class InputViewTest {
-    private final Splitter splitter = new Splitter();
-    private final InputView inputView = new InputView(splitter);
+    private Splitter splitter;
+    private InputView inputView;
+
+    @BeforeEach
+    void setUp() {
+        splitter = new Splitter();
+        inputView = new InputView(splitter);
+    }
 
     @AfterEach
     void closeConsole() {
@@ -42,9 +48,6 @@ class InputViewTest {
 
         // then
         assertThat(date.getDay()).isEqualTo(day);
-//        assertThatThrownBy(() -> inputView.inputDate())
-//                .isInstanceOf(IllegalArgumentException.class)
-//                .hasMessageContaining("숫자로 입력해야합니다.");
     }
 
     @DisplayName("메뉴 입력 기능 테스트")

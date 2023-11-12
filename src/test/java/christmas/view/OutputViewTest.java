@@ -3,13 +3,8 @@ package christmas.view;
 import christmas.domain.Date;
 import christmas.domain.Menu;
 import christmas.domain.Order;
-import christmas.domain.Splitter;
 import christmas.domain.constant.MenuBoard;
-import camp.nextstep.edu.missionutils.test.NsTest;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -21,13 +16,14 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 class OutputViewTest {
 
-    final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
-    final PrintStream standardOut = System.out;
-    final OutputView outputView = new OutputView(new DecimalFormat("###,###"));
+    private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+    private final PrintStream standardOut = System.out;
+    private OutputView outputView;
 
     @BeforeEach
     void setUp() {
         System.setOut(new PrintStream(outputStreamCaptor));
+        outputView = new OutputView(new DecimalFormat("###,###"));
     }
 
     @AfterEach
