@@ -24,9 +24,19 @@ public class Order {
     }
 
     private void validate(List<Menu> menus) {
-        Set<Menu> set = new HashSet<>(menus);
+        validateDuplication(menus);
+        validateTotalCount(menus);
+    }
 
+    private void validateDuplication(List<Menu> menus) {
+        Set<Menu> set = new HashSet<>(menus);
         if (set.size() != menus.size())
+            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+    }
+
+    private void validateTotalCount(List<Menu> menus) {
+        Integer sum = menus.stream().mapToInt(menu -> menu.getCount()).sum();
+        if (sum > 20)
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
     }
 
@@ -138,7 +148,7 @@ public class Order {
     public void provideChampagne() {
         benefits.add(new Benefit(DiscountName.GIVEAWAY, 25_000));
         if (containChampagne()) {
-            int index = menus.indexOf(new Menu(MenuBoard.CHAMPAGNE, 0));
+            int index = menus.indexOf(new Menu(MenuBoard.CHAMPAGNE, 1));
             menus.get(index).provide();
             return;
         }

@@ -274,14 +274,25 @@ class OrderTest {
     @DisplayName("메뉴가 중복되면 예외를 발생한다")
     @Test
     void 중복된_메뉴_입력() {
-        // given, when
-
-        // then
+        // give, when, then
         assertThatThrownBy(() -> new Order(List.of(
                 new Menu(MenuBoard.CHAMPAGNE, 1),
                 new Menu(MenuBoard.CHAMPAGNE, 1),
                 new Menu(MenuBoard.CHOCOLATE_CAKE, 1)
         ), new Date(3)))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageStartingWith("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+    }
+
+    @DisplayName("주문에 메뉴 20개가 초과하면 예외를 발생한다")
+    @Test
+    void 초과_메뉴_개수() {
+        // give, when, then
+        assertThatThrownBy(() -> new Order(List.of(
+                new Menu(MenuBoard.BARBEQUE_RIP, 35), // 108,000
+                new Menu(MenuBoard.CHAMPAGNE, 3), // 75_000
+                new Menu(MenuBoard.ICECREAM, 2) // 20_000
+        ), new Date(23)))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageStartingWith("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
     }
