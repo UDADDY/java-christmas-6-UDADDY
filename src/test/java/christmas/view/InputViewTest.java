@@ -28,7 +28,7 @@ class InputViewTest {
 
     @BeforeEach
     void setUp() {
-        inputView = new InputView(new Splitter(), new InputValidator());
+        inputView = new InputView(new Splitter());
     }
 
     @AfterEach
