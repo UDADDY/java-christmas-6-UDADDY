@@ -20,7 +20,7 @@ public class MarketController {
 
     public void run() {
         Date date = inputDate();
-        List<Menu> menus = inputView.inputMenu();
+        List<Menu> menus = inputMenu();
         Order order = new Order(menus, date);
         order.discountAll();
         printAll(order);
@@ -31,6 +31,17 @@ public class MarketController {
             try {
                 Date date = inputView.inputDate();
                 return date;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    private List<Menu> inputMenu() {
+        while (true) {
+            try {
+                List<Menu> menus = inputView.inputMenu();
+                return menus;
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
