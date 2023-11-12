@@ -11,7 +11,7 @@ import java.util.List;
 public class InputView {
     private final Splitter splitter;
 
-    public InputView(Splitter splitter) {
+    public InputView(final Splitter splitter) {
         this.splitter = splitter;
     }
 

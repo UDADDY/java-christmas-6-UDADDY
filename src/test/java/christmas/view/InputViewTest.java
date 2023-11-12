@@ -3,12 +3,11 @@ package christmas.view;
 import camp.nextstep.edu.missionutils.Console;
 import christmas.domain.Date;
 import christmas.domain.Menu;
-import christmas.domain.Order;
 import christmas.domain.Splitter;
 import christmas.domain.constant.MenuBoard;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -17,13 +16,15 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.List;
 
-import static camp.nextstep.edu.missionutils.test.Assertions.assertSimpleTest;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 class InputViewTest {
+    private final Splitter splitter = new Splitter();
+    private final InputView inputView = new InputView(splitter);
+
     @AfterEach
     void closeConsole() {
         Console.close();
@@ -35,8 +36,6 @@ class InputViewTest {
     void inputDate(String input, int day) {
         // given
         System.setIn(createUserInput(input));
-        Splitter splitter = new Splitter();
-        InputView inputView = new InputView(splitter);
 
         // when
         Date date = inputView.inputDate();
@@ -54,8 +53,6 @@ class InputViewTest {
     void inputMenu(String input) {
         // given
         System.setIn(createUserInput(input));
-        Splitter splitter = new Splitter();
-        InputView inputView = new InputView(splitter);
         Date date = new Date(24);
 
         List<Menu> expected = List.of(
