@@ -5,7 +5,9 @@ import christmas.domain.constant.EventBadge;
 import christmas.domain.constant.MenuBoard;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Order {
     private List<Menu> menus;
@@ -14,10 +16,18 @@ public class Order {
     private List<Benefit> benefits;
 
     public Order(List<Menu> menus, Date date) {
+        validate(menus);
         this.menus = new ArrayList<>(menus);
         this.date = date;
         this.benefits = new ArrayList<>();
         totalPrice = calculatePrice();
+    }
+
+    private void validate(List<Menu> menus) {
+        Set<Menu> set = new HashSet<>(menus);
+
+        if (set.size() != menus.size())
+            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
     }
 
     public Integer getTotalPrice() {
@@ -56,7 +66,7 @@ public class Order {
     public void discountAll() {
         if (!isDiscountable())
             return;
-        
+
         discountChristmas();
         discountWeekday();
         discountWeekend();

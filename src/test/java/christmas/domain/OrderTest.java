@@ -4,10 +4,13 @@ import christmas.domain.constant.EventBadge;
 import christmas.domain.constant.MenuBoard;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.internal.matchers.Or;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 class OrderTest {
     @DisplayName("할인 적용 전 가격이 잘 나오는 지 테스트")
@@ -266,6 +269,21 @@ class OrderTest {
 
         // then
         assertEquals(order.getEventBadge(), EventBadge.SANTA);
+    }
+
+    @DisplayName("메뉴가 중복되면 예외를 발생한다")
+    @Test
+    void 중복된_메뉴_입력() {
+        // given, when
+
+        // then
+        assertThatThrownBy(() -> new Order(List.of(
+                new Menu(MenuBoard.CHAMPAGNE, 1),
+                new Menu(MenuBoard.CHAMPAGNE, 1),
+                new Menu(MenuBoard.CHOCOLATE_CAKE, 1)
+        ), new Date(3)))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageStartingWith("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
     }
 
 }
