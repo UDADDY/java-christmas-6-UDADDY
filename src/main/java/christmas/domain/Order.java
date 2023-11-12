@@ -26,6 +26,7 @@ public class Order {
     private void validate(List<Menu> menus) {
         validateDuplication(menus);
         validateTotalCount(menus);
+        validateOnlyBeverage(menus);
     }
 
     private void validateDuplication(List<Menu> menus) {
@@ -37,6 +38,12 @@ public class Order {
     private void validateTotalCount(List<Menu> menus) {
         Integer sum = menus.stream().mapToInt(menu -> menu.getCount()).sum();
         if (sum > 20)
+            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+    }
+
+    private void validateOnlyBeverage(List<Menu> menus) {
+        List<Menu> filterdMenus = menus.stream().filter(menu -> menu.isBeverage()).toList();
+        if (menus.size() == filterdMenus.size())
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
     }
 

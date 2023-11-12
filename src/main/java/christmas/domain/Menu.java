@@ -43,6 +43,12 @@ public class Menu {
         return false;
     }
 
+    public boolean isBeverage() {
+        if (menu.equals(MenuBoard.ZERO_COKE) || menu.equals(MenuBoard.RED_WINE) || menu.equals(MenuBoard.CHAMPAGNE))
+            return true;
+        return false;
+    }
+
     public void provide() {
         this.count++;
     }

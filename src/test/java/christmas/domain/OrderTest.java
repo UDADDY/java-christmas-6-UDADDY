@@ -297,4 +297,16 @@ class OrderTest {
                 .hasMessageStartingWith("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
     }
 
+    @DisplayName("주문에 음료만 있으면 예외를 발생한다")
+    @Test
+    void 주문_음료만_예외() {
+        // give, when, then
+        assertThatThrownBy(() -> new Order(List.of(
+                new Menu(MenuBoard.ZERO_COKE, 10), // 108,000
+                new Menu(MenuBoard.CHAMPAGNE, 3)
+        ), new Date(23)))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageStartingWith("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+    }
+
 }
