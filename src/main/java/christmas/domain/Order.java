@@ -144,13 +144,13 @@ public class Order {
     }
 
     public EventBadge getEventBadge() {
-        if (getTotalDiscountPrice() >= EventBadge.SANTA.getMinimumStandard()) {
+        if (getTotalBenefitPrice() >= EventBadge.SANTA.getMinimumStandard()) {
             return EventBadge.SANTA;
         }
-        if (getTotalDiscountPrice() >= EventBadge.TREE.getMinimumStandard()) {
+        if (getTotalBenefitPrice() >= EventBadge.TREE.getMinimumStandard()) {
             return EventBadge.TREE;
         }
-        if (getTotalDiscountPrice() >= EventBadge.STAR.getMinimumStandard()) {
+        if (getTotalBenefitPrice() >= EventBadge.STAR.getMinimumStandard()) {
             return EventBadge.STAR;
         }
         return EventBadge.NOTHING;

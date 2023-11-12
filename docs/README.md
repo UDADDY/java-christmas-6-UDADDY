@@ -15,44 +15,45 @@
 # 구현 기능 목록
 
 - [x] 입력받은 메뉴와 개수를 분리하는 기능 - Splitter#splitMenu
-- [ ] 할인 전 총주문 금액 계산하는 기능 - Order#calculateBeforeDiscount
+- [x] 할인 전 총주문 금액 계산하는 기능 - Order#calculateBeforeDiscount
 - 할인 적용 기능
-    - [ ] 할인이 적용되는 최소 금액이 되는지 판단하는 기능 - Order#isDiscountable
+    - [x] 할인이 적용되는 최소 금액이 되는지 판단하는 기능 - Order#isDiscountable
     - 크리스마스 디데이 할인
-        - [ ] 12.1 ~ 12.25 사이에 있는 지 판단하는 기능 - Date#isChristmastDiscountable
-        - [ ] 적용 기간이라면 할인 금액을 책정하는 기능 - 모르겠다.
-        - [ ] 할인 적용하는 기능 - Order#discountChristmas
+        - [x] 12.1 ~ 12.25 사이에 있는 지 판단하는 기능 - Date#isChristmastDiscountable
+        - [x] 적용 기간이라면 할인 금액을 책정하는 기능 - Date#getDiscountPriceChristmas
+        - [x] 할인 적용하는 기능 - Order#discountChristmas
     - 평일, 주말 할인
-        - [ ] 평일인지 판단하는 기능 - Date#isWeekday
-        - [ ] 주말인지 판단하는 기능 - Date#isWeekend
-        - [ ] 평일이면 디저트 메뉴 할인하는 기능 - Order#discountDessert
-        - [ ] 주말이면 메인 메뉴 할인하는 기능 - Order#discountMain
+        - [x] 평일인지 판단하는 기능 - Date#isWeekday
+        - [x] 주말인지 판단하는 기능 - Date#isWeekend
+        - [x] 주문에 디저트 메뉴 개수 반환하는 기능 - Order#getCountDessert
+        - [x] 주문에 메인 메뉴 개수 반환하는 기능 - Order#getCountMain
+        - [x] 평일이면 디저트 메뉴 할인하는 기능 - Order#discountWeekday
+        - [x] 주말이면 메인 메뉴 할인하는 기능 - Order#discountWeekend
     - 특별 할인
-        - [ ] 12월 3, 10, 17, 24, 25, 31일인지 판단하는 기능
-        - [ ] 할인 적용하는 기능 - Order#discountSpecial
-    - 증정 이벤트
-        - [ ] 증정 이벤트 판단하는 기능 - Date#isSpecialDay
-        - [ ] 샴페인 제공하는 기능 - Order#provideChampagne
+        - [x] 12월 3, 10, 17, 24, 25, 31일인지 판단하는 기능 - Date#isSpecialDay
+        - [x] 할인 적용하는 기능 - Order#discountSpecial
+    - 증정 이벤트(Giveaway Event)
+        - [x] 증정 이벤트 판단하는현 기능 - Order#isGiveaway
+        - [x] 샴페인 제공하는 기능 - Order#provideChampagne
     - 이벤트 배지
-        - [ ] 이벤트 배지 판단하는 기능 - Order#getEventBadge
-        - [ ] 이벤트 배지 제공하는 기능 - Order#provideEventBadge
+        - [x] 이벤트 배지 판단, 제공하는 기능 - Order#getEventBadge
 
 ## 입출력 기능
 
 ### 입력 기능
 
-- [ ] 날짜 입력 기능
-- [ ] 메뉴 입력 기능
+- [x] 날짜 입력 기능 - InputView#inputDate
+- [x] 메뉴 입력 기능 - InputView#inputMenu
 
 ### 출력 기능
 
-- [ ] 주문 메뉴 출력 기능
-- [ ] 할인 전 총금액 출력 기능
-- [ ] 증정 메뉴 출력 기능(없으면 "없음")
-- [ ] 혜택 내역 출력 기능(없으면 "없음")
-- [ ] 총혜택 금액 출력 기능(없으면 "0원")
-- [ ] 할인 후 예상 결제 금액 출력 기능
-- [ ] 12월 이벤트 배지 출력 기능(없으면 "없음")
+- [x] 주문 메뉴 출력 기능 - OutputView#printMenu
+- [x] 할인 전 총금액 출력 기능 - OutputView#printTotalPrice
+- [x] 증정 메뉴 출력 기능(없으면 "없음") - OutputView#printGiveaway
+- [x] 혜택 내역 출력 기능(없으면 "없음") - OutputView#printBenefit
+- [x] 총혜택 금액 출력 기능(없으면 "0원") - OutputView#printTotalDiscountPrice
+- [x] 할인 후 예상 결제 금액 출력 기능 - OutputView#printPriceAfterDiscount
+- [ ] 12월 이벤트 배지 출력 기능(없으면 "없음") - OutputView#printEventBadge
 
 ## 예외 처리
 

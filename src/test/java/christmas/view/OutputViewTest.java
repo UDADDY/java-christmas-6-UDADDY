@@ -229,6 +229,50 @@ class OutputViewTest {
         );
     }
 
+    @DisplayName("12월 이벤트 배지 출력 기능 테스트")
+    @Test
+    void printEventBadge() {
+        // given
+        OutputView outputView = new OutputView();
+        Order order = new Order(List.of(
+                new Menu(MenuBoard.T_BONE_STEAK, 1), // 540,000
+                new Menu(MenuBoard.BARBEQUE_RIP, 1), // 75_000
+                new Menu(MenuBoard.CHOCOLATE_CAKE, 2), // 10_000
+                new Menu(MenuBoard.ZERO_COKE, 1) // 10_000
+        ), new Date(3));
+
+        // when
+        discountAll(order);
+        outputView.printEventBadge(order);
+
+        // then
+        assertThat(outputStreamCaptor.toString().trim()).isEqualTo(
+                "<12월 이벤트 배지>\n" +
+                        "산타"
+        );
+    }
+
+    @DisplayName("12월 이벤트 배지 출력 기능 테스트(없음)")
+    @Test
+    void printNoEventBadge() {
+        // given
+        OutputView outputView = new OutputView();
+        Order order = new Order(List.of(
+                new Menu(MenuBoard.TAPAS, 1), // 540,000
+                new Menu(MenuBoard.ZERO_COKE, 1)
+        ), new Date(26));
+
+        // when
+        discountAll(order);
+        outputView.printEventBadge(order);
+
+        // then
+        assertThat(outputStreamCaptor.toString().trim()).isEqualTo(
+                "<12월 이벤트 배지>\n" +
+                        "없음"
+        );
+    }
+
     private void discountAll(Order order) {
         order.discountChristmas();
         order.discountWeekday();

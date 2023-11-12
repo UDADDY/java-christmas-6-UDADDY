@@ -64,4 +64,9 @@ public class OutputView {
         System.out.println("<할인 후 예상 결제 금액>");
         System.out.printf("%s원", decimalFormat.format(priceAfterDiscount));
     }
+
+    public void printEventBadge(final Order order) {
+        System.out.println("<12월 이벤트 배지>");
+        System.out.println(order.getEventBadge().getName());
+    }
 }
