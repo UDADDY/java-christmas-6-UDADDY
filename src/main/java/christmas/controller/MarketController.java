@@ -5,7 +5,6 @@ import christmas.domain.Menu;
 import christmas.domain.Order;
 import christmas.view.InputView;
 import christmas.view.OutputView;
-import org.mockito.internal.matchers.Or;
 
 import java.util.List;
 
@@ -20,10 +19,25 @@ public class MarketController {
     }
 
     public void run() {
-        Date date = inputView.inputDate();
+        Date date = inputDate();
         List<Menu> menus = inputView.inputMenu();
         Order order = new Order(menus, date);
         order.discountAll();
+        printAll(order);
+    }
+
+    private Date inputDate() {
+        while (true) {
+            try {
+                Date date = inputView.inputDate();
+                return date;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    private void printAll(Order order) {
         outputView.printMenu(order);
         outputView.printTotalPrice(order);
         outputView.printGiveaway(order);
@@ -31,5 +45,6 @@ public class MarketController {
         outputView.printTotalBenefitPrice(order);
         outputView.printPriceAfterDiscount(order);
         outputView.printEventBadge(order);
+
     }
 }

@@ -5,20 +5,24 @@ import christmas.domain.Date;
 import christmas.domain.Menu;
 import christmas.domain.Order;
 import christmas.domain.Splitter;
+import christmas.validator.InputValidator;
 
 import java.util.List;
 
 public class InputView {
     private final Splitter splitter;
+    private final InputValidator inputValidator;
 
-    public InputView(final Splitter splitter) {
+    public InputView(final Splitter splitter, final InputValidator inputValidator) {
         this.splitter = splitter;
+        this.inputValidator = inputValidator;
     }
 
     public Date inputDate() {
         System.out.println("안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.\n" +
                 "12월 중 식당 예상 방문 날짜는 언제인가요? (숫자만 입력해 주세요!)");
         String input = Console.readLine();
+        inputValidator.validateDate(input);
         Date date = new Date(Integer.parseInt(input));
         return date;
     }

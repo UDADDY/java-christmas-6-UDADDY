@@ -5,9 +5,11 @@ import christmas.domain.Date;
 import christmas.domain.Menu;
 import christmas.domain.Splitter;
 import christmas.domain.constant.MenuBoard;
+import christmas.validator.InputValidator;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -22,13 +24,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 class InputViewTest {
-    private Splitter splitter;
     private InputView inputView;
 
     @BeforeEach
     void setUp() {
-        splitter = new Splitter();
-        inputView = new InputView(splitter);
+        inputView = new InputView(new Splitter(), new InputValidator());
     }
 
     @AfterEach
@@ -48,6 +48,32 @@ class InputViewTest {
 
         // then
         assertThat(date.getDay()).isEqualTo(day);
+    }
+
+    @DisplayName("날짜 입력 시 숫자가 아닌 값이 들어오면 예외를 발생시킨다")
+    @ParameterizedTest
+    @ValueSource(strings = {"a, a19, 20bdd3"})
+    void inputDateNotInteger(String input) {
+        // given
+        System.setIn(createUserInput(input));
+
+        // when, then
+        assertThatThrownBy(() -> inputView.inputDate())
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageStartingWith("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
+    }
+
+    @DisplayName("날짜 입력 시 1~31 사이 값이 아니면 예외를 발생시킨다")
+    @ParameterizedTest
+    @ValueSource(strings = {"31a, -1, 0, 32, 1000b"})
+    void inputDateNotRange(String input) {
+        // given
+        System.setIn(createUserInput(input));
+
+        // when, then
+        assertThatThrownBy(() -> inputView.inputDate())
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageStartingWith("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
     }
 
     @DisplayName("메뉴 입력 기능 테스트")
