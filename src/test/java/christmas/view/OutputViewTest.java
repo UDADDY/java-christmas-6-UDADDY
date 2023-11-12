@@ -3,6 +3,7 @@ package christmas.view;
 import christmas.domain.Date;
 import christmas.domain.Menu;
 import christmas.domain.Order;
+import christmas.domain.Splitter;
 import christmas.domain.constant.MenuBoard;
 import camp.nextstep.edu.missionutils.test.NsTest;
 import org.junit.jupiter.api.AfterEach;
@@ -12,6 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -21,6 +23,7 @@ class OutputViewTest {
 
     final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
     final PrintStream standardOut = System.out;
+    final OutputView outputView = new OutputView(new DecimalFormat("###,###"));
 
     @BeforeEach
     void setUp() {
@@ -36,7 +39,6 @@ class OutputViewTest {
     @Test
     void printMenu() {
         // given
-        OutputView outputView = new OutputView();
         Order order = new Order(List.of(
                 new Menu(MenuBoard.BARBEQUE_RIP, 10), // 540,000
                 new Menu(MenuBoard.CHAMPAGNE, 3), // 75_000
@@ -57,7 +59,6 @@ class OutputViewTest {
     @Test
     void printTotalPrice() {
         // given
-        OutputView outputView = new OutputView();
         Order order = new Order(List.of(
                 new Menu(MenuBoard.BARBEQUE_RIP, 10), // 540,000
                 new Menu(MenuBoard.CHAMPAGNE, 3), // 75_000
@@ -77,7 +78,6 @@ class OutputViewTest {
     @Test
     void printGiveaway() {
         // given
-        OutputView outputView = new OutputView();
         Order order = new Order(List.of(
                 new Menu(MenuBoard.BARBEQUE_RIP, 10), // 540,000
                 new Menu(MenuBoard.CHAMPAGNE, 3), // 75_000
@@ -98,7 +98,6 @@ class OutputViewTest {
     @Test
     void printNoGiveaway() {
         // given
-        OutputView outputView = new OutputView();
         Order order = new Order(List.of(
                 new Menu(MenuBoard.BARBEQUE_RIP, 1), // 540,000
                 new Menu(MenuBoard.CHAMPAGNE, 1), // 75_000
@@ -119,7 +118,6 @@ class OutputViewTest {
     @Test
     void printBenefit() {
         // given
-        OutputView outputView = new OutputView();
         Order order = new Order(List.of(
                 new Menu(MenuBoard.T_BONE_STEAK, 1), // 540,000
                 new Menu(MenuBoard.BARBEQUE_RIP, 1), // 75_000
@@ -145,7 +143,6 @@ class OutputViewTest {
     @Test
     void printNoBenefit() {
         // given
-        OutputView outputView = new OutputView();
         Order order = new Order(List.of(
                 new Menu(MenuBoard.TAPAS, 1), // 540,000
                 new Menu(MenuBoard.ZERO_COKE, 1)
@@ -166,7 +163,6 @@ class OutputViewTest {
     @Test
     void printTotalDiscountPrice() {
         // given
-        OutputView outputView = new OutputView();
         Order order = new Order(List.of(
                 new Menu(MenuBoard.T_BONE_STEAK, 1), // 540,000
                 new Menu(MenuBoard.BARBEQUE_RIP, 1), // 75_000
@@ -189,7 +185,6 @@ class OutputViewTest {
     @Test
     void printNoTotalDiscountPrice() {
         // given
-        OutputView outputView = new OutputView();
         Order order = new Order(List.of(
                 new Menu(MenuBoard.TAPAS, 1), // 540,000
                 new Menu(MenuBoard.ZERO_COKE, 1)
@@ -210,7 +205,6 @@ class OutputViewTest {
     @Test
     void printPriceAfterDiscount() {
         // given
-        OutputView outputView = new OutputView();
         Order order = new Order(List.of(
                 new Menu(MenuBoard.T_BONE_STEAK, 1), // 540,000
                 new Menu(MenuBoard.BARBEQUE_RIP, 1), // 75_000
@@ -233,7 +227,6 @@ class OutputViewTest {
     @Test
     void printEventBadge() {
         // given
-        OutputView outputView = new OutputView();
         Order order = new Order(List.of(
                 new Menu(MenuBoard.T_BONE_STEAK, 1), // 540,000
                 new Menu(MenuBoard.BARBEQUE_RIP, 1), // 75_000
@@ -256,7 +249,6 @@ class OutputViewTest {
     @Test
     void printNoEventBadge() {
         // given
-        OutputView outputView = new OutputView();
         Order order = new Order(List.of(
                 new Menu(MenuBoard.TAPAS, 1), // 540,000
                 new Menu(MenuBoard.ZERO_COKE, 1)

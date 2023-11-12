@@ -9,7 +9,11 @@ import java.util.List;
 
 public class OutputView {
 
-    private DecimalFormat decimalFormat = new DecimalFormat("###,###");
+    private DecimalFormat decimalFormat;
+
+    public OutputView(DecimalFormat decimalFormat) {
+        this.decimalFormat = decimalFormat;
+    }
 
     public void printMenu(final Order order) {
         System.out.println("<주문 메뉴>");
