@@ -9,9 +9,12 @@ import christmas.view.OutputView;
 import java.text.DecimalFormat;
 
 public class Application {
+
+    private static final String pattern = "###,###";
+
     public static void main(String[] args) {
         InputView inputView = new InputView(new Splitter());
-        OutputView outputView = new OutputView(new DecimalFormat("###,###"));
+        OutputView outputView = new OutputView(new DecimalFormat(pattern));
         MarketController marketController = new MarketController(inputView, outputView);
         marketController.run();
     }
