@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class DateTest {
 
-    @DisplayName("1~25일 사이인지 판단하는 테스트")
+    @DisplayName("크리스마스 디데이 할인 1~25일 사이인지 판단하는 테스트")
     @ParameterizedTest
     @ValueSource(ints = {1, 11, 25})
     void isChristmastDiscountable(int day) {
@@ -24,7 +24,7 @@ class DateTest {
         assertEquals(isChristmasDiscountable, true);
     }
 
-    @DisplayName("1~25일이 아닌지 판단하는 테스트")
+    @DisplayName("크리스마스 디데이 할인 1~25일이 아닌지 판단하는 테스트")
     @ParameterizedTest
     @ValueSource(ints = {26, 27, 31})
     void 크리스마스_디데이_할인_아닌_날(int day) {
