@@ -5,14 +5,12 @@ import christmas.domain.constant.MenuBoard;
 import java.util.regex.Pattern;
 
 public class InputValidator {
-
     private static final Pattern NUMBER_PATTERN = Pattern.compile("-?\\d+");
 
     public static void validateDate(String input) {
         validateNumber(input);
         validateNull(input);
     }
-
 
     public static void validateMenu(String[] menuAndCount) {
         validateForm(menuAndCount);
