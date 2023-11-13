@@ -26,7 +26,7 @@ class DateTest {
 
     @DisplayName("1~25일이 아닌지 판단하는 테스트")
     @ParameterizedTest
-    @ValueSource(ints = {0, 26, 27, 31})
+    @ValueSource(ints = {26, 27, 31})
     void 크리스마스_디데이_할인_아닌_날(int day) {
         // given
         Date date = new Date(day);
@@ -92,5 +92,15 @@ class DateTest {
 
         // then
         assertEquals(isSpecialDay, expected);
+    }
+
+    @DisplayName("1 ~ 31이 아닌 값이 들어오면 예외를 발생시킨다")
+    @ParameterizedTest
+    @ValueSource(ints = {0, 32, -3, 333})
+    void dayNotRange(int day) {
+        // when, given, when
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Date(day);
+        });
     }
 }
