@@ -10,7 +10,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Date {
-
+    private static final Integer DAY_MINIMUM = 1;
+    private static final Integer DAY_MAXIMUM = 31;
     private Integer day;
 
     public Date(Integer day) {
