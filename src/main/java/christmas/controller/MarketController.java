@@ -56,6 +56,5 @@ public class MarketController {
         outputView.printTotalBenefitPrice(order);
         outputView.printPriceAfterDiscount(order);
         outputView.printEventBadge(order);
-
     }
 }
