@@ -10,7 +10,9 @@ public class InputValidator {
 
     public static void validateDate(String input) {
         validateNumber(input);
+        validateNull(input);
     }
+
 
     public static void validateMenu(String[] menuAndCount) {
         validateForm(menuAndCount);
@@ -20,6 +22,11 @@ public class InputValidator {
 
         validateExistMenuBoard(menu);
         validateIsNumber(count);
+    }
+
+    private static void validateNull(String input) {
+        if (input.isEmpty())
+            throw new IllegalArgumentException("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
     }
 
     private static void validateForm(String[] menuAndCount) {

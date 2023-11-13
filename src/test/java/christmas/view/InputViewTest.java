@@ -76,6 +76,15 @@ class InputViewTest {
                 .hasMessageStartingWith("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
     }
 
+    @DisplayName("날짜 입력 시 null 값이면 예외를 발생시킨다")
+    @Test
+    void inputDateNull() {
+        // when, then
+        assertThatThrownBy(() -> InputValidator.validateDate(""))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
+    }
+
     @DisplayName("메뉴 입력 기능 테스트")
     @ParameterizedTest
     @ValueSource(strings = {"티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1"})
