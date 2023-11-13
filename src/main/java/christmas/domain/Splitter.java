@@ -13,9 +13,7 @@ public class Splitter {
         final String[] menuAndCounts = input.split(",");
         for (String menuAndCount : menuAndCounts) {
             String[] splited = menuAndCount.split("-");
-
             InputValidator.validateMenu(splited);
-
             String name = splited[0];
             Integer count = Integer.parseInt(splited[1]);
             MenuBoard menuBoard = MenuBoard.getValueByName(name);

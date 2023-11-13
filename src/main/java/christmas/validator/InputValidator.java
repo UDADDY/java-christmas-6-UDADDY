@@ -24,7 +24,7 @@ public class InputValidator {
         validateIsNumber(count);
     }
 
-    private static void validateNull(String input) {
+    public static void validateNull(String input) {
         if (input.isEmpty())
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
     }
