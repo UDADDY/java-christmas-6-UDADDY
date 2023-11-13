@@ -1,8 +1,6 @@
 package christmas.domain;
 
-import christmas.domain.constant.SpeicalDay;
-import christmas.domain.constant.Weekday;
-import christmas.domain.constant.Weekend;
+import christmas.domain.constant.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,19 +22,19 @@ public class Date {
     }
 
     public boolean isChristmastDiscountable() {
-        if (1 <= day && day <= 25) {
+        if (ChristmasDDay.MINIMUM.getDay() <= day && day <= ChristmasDDay.MAXIMUM.getDay()) {
             return true;
         }
         return false;
     }
 
     public Integer getDiscountPriceChristmas() {
-        return 1000 + (day - 1) * 100;
+        return CashUnit.CHRISTMAS_D_DAY_CRITERION.getUnit() + (day - 1) * CashUnit.CHRISTMAS_D_DAY_GROWTH.getUnit();
     }
 
     public boolean isWeekday() {
         List<Weekday> weekdays = new ArrayList<>(List.of(Weekday.values()));
-        List<Integer> days = weekdays.stream().map(Weekday::getDay).collect(Collectors.toList());
+        List<Integer> days = weekdays.stream().map(Weekday::getDay).toList();
         if (days.contains(day))
             return true;
         return false;
@@ -44,7 +42,7 @@ public class Date {
 
     public boolean isWeekend() {
         List<Weekend> weekends = new ArrayList<>(List.of(Weekend.values()));
-        List<Integer> days = weekends.stream().map(Weekend::getDay).collect(Collectors.toList());
+        List<Integer> days = weekends.stream().map(Weekend::getDay).toList();
         if (days.contains(day))
             return true;
         return false;
@@ -52,14 +50,14 @@ public class Date {
 
     public boolean isSpecialDay() {
         List<SpeicalDay> speicalDays = new ArrayList<>(List.of(SpeicalDay.values()));
-        List<Integer> days = speicalDays.stream().map(SpeicalDay::getDay).collect(Collectors.toList());
+        List<Integer> days = speicalDays.stream().map(SpeicalDay::getDay).toList();
         if (days.contains(day))
             return true;
         return false;
     }
 
     public void validate(Integer day) {
-        if (!(1 <= day && day <= 31))
+        if (!(DAY_MINIMUM <= day && day <= DAY_MAXIMUM))
             throw new IllegalArgumentException();
     }
 
