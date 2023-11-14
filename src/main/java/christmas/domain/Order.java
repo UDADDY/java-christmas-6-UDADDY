@@ -12,7 +12,6 @@ import java.util.Set;
 public class Order {
     private List<Menu> menus;
     private Date date;
-    private Integer totalPrice;
     private List<Benefit> benefits;
 
     public Order(final List<Menu> menus, final Date date) {
@@ -20,7 +19,6 @@ public class Order {
         this.menus = new ArrayList<>(menus);
         this.date = date;
         this.benefits = new ArrayList<>();
-        totalPrice = calculatePrice();
     }
 
     private void validate(final List<Menu> menus) {
@@ -48,7 +46,8 @@ public class Order {
     }
 
     public Integer getTotalPrice() {
-        return this.totalPrice;
+        Integer totalPrice = this.menus.stream().mapToInt(i -> i.getPrice()).sum();
+        return totalPrice;
     }
 
     public Integer getTotalDiscountPrice() {
@@ -147,7 +146,7 @@ public class Order {
     }
 
     public boolean isGiveaway() {
-        if (this.totalPrice >= 120_000)
+        if (getTotalPrice() >= 120_000)
             return true;
         return false;
     }
