@@ -8,7 +8,7 @@ public class Menu {
     private MenuBoard menu;
     private Integer count;
 
-    public Menu(MenuBoard menu, Integer count) {
+    public Menu(final MenuBoard menu, final Integer count) {
         this.menu = menu;
         this.count = count;
     }
@@ -62,10 +62,10 @@ public class Menu {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Menu comparedMenu = (Menu) o;
+        final Menu comparedMenu = (Menu) o;
         return menu == comparedMenu.menu;
     }
 

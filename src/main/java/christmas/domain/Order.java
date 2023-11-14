@@ -15,7 +15,7 @@ public class Order {
     private Integer totalPrice;
     private List<Benefit> benefits;
 
-    public Order(List<Menu> menus, Date date) {
+    public Order(final List<Menu> menus, final Date date) {
         validate(menus);
         this.menus = new ArrayList<>(menus);
         this.date = date;
@@ -23,26 +23,26 @@ public class Order {
         totalPrice = calculatePrice();
     }
 
-    private void validate(List<Menu> menus) {
+    private void validate(final List<Menu> menus) {
         validateDuplication(menus);
         validateTotalCount(menus);
         validateOnlyBeverage(menus);
     }
 
-    private void validateDuplication(List<Menu> menus) {
-        Set<Menu> set = new HashSet<>(menus);
+    private void validateDuplication(final List<Menu> menus) {
+        final Set<Menu> set = new HashSet<>(menus);
         if (set.size() != menus.size())
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
     }
 
-    private void validateTotalCount(List<Menu> menus) {
-        Integer sum = menus.stream().mapToInt(menu -> menu.getCount()).sum();
+    private void validateTotalCount(final List<Menu> menus) {
+        final Integer sum = menus.stream().mapToInt(menu -> menu.getCount()).sum();
         if (sum > 20)
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
     }
 
-    private void validateOnlyBeverage(List<Menu> menus) {
-        List<Menu> filterdMenus = menus.stream().filter(menu -> menu.isBeverage()).toList();
+    private void validateOnlyBeverage(final List<Menu> menus) {
+        final List<Menu> filterdMenus = menus.stream().filter(menu -> menu.isBeverage()).toList();
         if (menus.size() == filterdMenus.size())
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
     }
@@ -92,7 +92,7 @@ public class Order {
     }
 
     public boolean isDiscountable() {
-        Integer priceTotal = calculatePrice();
+        final Integer priceTotal = calculatePrice();
         if (priceTotal > 10_000)
             return true;
         return false;
@@ -124,14 +124,14 @@ public class Order {
 
     public void discountWeekday() { // 디저트 할인
         if (date.isWeekday()) {
-            Integer countDessert = getCountDessert();
+            final Integer countDessert = getCountDessert();
             benefits.add(new Benefit(DiscountName.WEEKDAY, countDessert * 2_023));
         }
     }
 
     public void discountWeekend() {
         if (date.isWeekend()) {
-            Integer countMain = getCountMain();
+            final Integer countMain = getCountMain();
             benefits.add(new Benefit(DiscountName.WEEKEND, countMain * 2_023));
         }
     }
@@ -155,7 +155,7 @@ public class Order {
     public void provideChampagne() {
         benefits.add(new Benefit(DiscountName.GIVEAWAY, 25_000));
         if (containChampagne()) {
-            int index = menus.indexOf(new Menu(MenuBoard.CHAMPAGNE, 1));
+            final int index = menus.indexOf(new Menu(MenuBoard.CHAMPAGNE, 1));
             menus.get(index).provide();
             return;
         }
@@ -163,7 +163,7 @@ public class Order {
     }
 
     public boolean containChampagne() {
-        Menu filteredMenus = menus.stream()
+        final Menu filteredMenus = menus.stream()
                 .filter(menu -> menu.getName().equals(MenuBoard.CHAMPAGNE.getName()))
                 .findAny()
                 .orElse(null);
@@ -199,7 +199,7 @@ public class Order {
     }
 
     public Integer getCountByName(MenuBoard menuBoard) {
-        Integer count = (int) menus.stream()
+        final Integer count = (int) menus.stream()
                 .filter(menu -> menu.equals(menuBoard))
                 .count();
         return count;

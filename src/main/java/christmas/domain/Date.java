@@ -12,7 +12,7 @@ public class Date {
     private static final Integer DAY_MAXIMUM = 31;
     private Integer day;
 
-    public Date(Integer day) {
+    public Date(final Integer day) {
         validate(day);
         this.day = day;
     }
@@ -33,24 +33,24 @@ public class Date {
     }
 
     public boolean isWeekday() {
-        List<Weekday> weekdays = new ArrayList<>(List.of(Weekday.values()));
-        List<Integer> days = weekdays.stream().map(Weekday::getDay).toList();
+        final List<Weekday> weekdays = new ArrayList<>(List.of(Weekday.values()));
+        final List<Integer> days = weekdays.stream().map(Weekday::getDay).toList();
         if (days.contains(day))
             return true;
         return false;
     }
 
     public boolean isWeekend() {
-        List<Weekend> weekends = new ArrayList<>(List.of(Weekend.values()));
-        List<Integer> days = weekends.stream().map(Weekend::getDay).toList();
+        final List<Weekend> weekends = new ArrayList<>(List.of(Weekend.values()));
+        final List<Integer> days = weekends.stream().map(Weekend::getDay).toList();
         if (days.contains(day))
             return true;
         return false;
     }
 
     public boolean isSpecialDay() {
-        List<SpeicalDay> speicalDays = new ArrayList<>(List.of(SpeicalDay.values()));
-        List<Integer> days = speicalDays.stream().map(SpeicalDay::getDay).toList();
+        final List<SpeicalDay> speicalDays = new ArrayList<>(List.of(SpeicalDay.values()));
+        final List<Integer> days = speicalDays.stream().map(SpeicalDay::getDay).toList();
         if (days.contains(day))
             return true;
         return false;

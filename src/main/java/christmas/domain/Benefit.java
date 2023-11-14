@@ -6,7 +6,7 @@ public class Benefit {
     private DiscountName discountName;
     private Integer price;
 
-    public Benefit(DiscountName discountName, Integer price) {
+    public Benefit(final DiscountName discountName, final Integer price) {
         this.discountName = discountName;
         this.price = price;
     }
