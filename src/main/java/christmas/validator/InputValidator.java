@@ -1,5 +1,6 @@
 package christmas.validator;
 
+import christmas.domain.constant.ErrorMessage;
 import christmas.domain.constant.MenuBoard;
 
 import java.util.regex.Pattern;
@@ -24,29 +25,29 @@ public class InputValidator {
 
     public static void validateNull(String input) {
         if (input.isEmpty())
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException(ErrorMessage.WRONG_DATE.getMessage());
     }
 
     private static void validateForm(String[] menuAndCount) {
         if (menuAndCount.length != 2)
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException(ErrorMessage.WRONG_DATE.getMessage());
     }
 
     private static void validateNumber(String input) {
         if (!NUMBER_PATTERN.matcher(input).matches())
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException(ErrorMessage.WRONG_DATE.getMessage());
     }
 
     private static void validateExistMenuBoard(String menu) {
         if (MenuBoard.getValueByName(menu) == null)
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException(ErrorMessage.WRONG_MENU.getMessage());
     }
 
     private static void validateIsNumber(String count) {
         try {
             Integer.parseInt(count);
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException(ErrorMessage.WRONG_MENU.getMessage());
         }
     }
 }

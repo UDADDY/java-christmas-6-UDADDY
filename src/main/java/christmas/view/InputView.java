@@ -26,6 +26,7 @@ public class InputView {
     }
 
     public List<Menu> inputMenu() {
+        System.out.println();
         System.out.println(InputMessage.INPUT_MENU.getMessage());
         String input = Console.readLine();
         List<Menu> menus = splitter.splitMenu(input);
