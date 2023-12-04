@@ -277,7 +277,7 @@ class OrderTest {
         // give, when, then
         assertThatThrownBy(() -> new Order(List.of(
                 new Menu(MenuBoard.CHAMPAGNE, 1),
-                new Menu(MenuBoard.CHAMPAGNE, 1),
+                new Menu(MenuBoard.CHAMPAGNE, 2),
                 new Menu(MenuBoard.CHOCOLATE_CAKE, 1)
         ), new Date(3)))
                 .isInstanceOf(IllegalArgumentException.class)

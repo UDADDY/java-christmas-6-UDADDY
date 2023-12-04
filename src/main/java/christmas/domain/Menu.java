@@ -71,6 +71,6 @@ public class Menu {
 
     @Override
     public int hashCode() {
-        return Objects.hash(menu, count);
+        return Objects.hash(menu);
     }
 }
