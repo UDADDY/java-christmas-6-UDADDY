@@ -104,12 +104,7 @@ public class Order {
     }
 
     public Integer getCountDessert() {
-        Integer sum = 0;
-        for (Menu menu : menus) {
-            if (menu.isDessert())
-                sum += menu.getCount();
-        }
-        return sum;
+        return menus.stream().filter(menu -> menu.isDessert()).mapToInt(menu -> menu.getCount()).sum();
     }
 
     public Integer getCountMain() {
