@@ -108,12 +108,7 @@ public class Order {
     }
 
     public Integer getCountMain() {
-        Integer sum = 0;
-        for (Menu menu : menus) {
-            if (menu.isMain())
-                sum += menu.getCount();
-        }
-        return sum;
+        return menus.stream().filter(menu -> menu.isMain()).mapToInt(menu -> menu.getCount()).sum();
     }
 
     public void discountWeekday() { // 디저트 할인
